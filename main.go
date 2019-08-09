@@ -70,6 +70,7 @@ func watchPods(client cache.Getter, namespace string, selector string) cache.Sto
 	// Create the controller.
 	// Note: The AddFunc handler will be called for each existing pod when first starting the controller.
 	// Note: The UpdateFunc handler will be called every resync period, even if nothing has changed.
+	// Note: The handler functions are called in sequence. Slow or blocking handlers may cause performance issues.
 	lw := cache.NewFilteredListWatchFromClient(client, v1.ResourcePods.String(), namespace, optionsModifier)
 	resyncPeriod := 5 * time.Minute
 	store, controller := cache.NewInformer(lw, &v1.Pod{}, resyncPeriod, cache.ResourceEventHandlerFuncs{
