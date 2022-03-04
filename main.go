@@ -133,7 +133,7 @@ func main() {
 	}
 
 	// Use the core API client.
-	client := clientset.Core().RESTClient()
+	client := clientset.CoreV1().RESTClient()
 
 	// Watch for pod events.
 	watchPods(client, *namespace, *selector)
